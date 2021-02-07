@@ -1,0 +1,10 @@
+{
+  "name": "com.flerkeninabox.mesh",
+  "version": "1.0.0",
+  "displayName": "Flerken Mesh",
+  "unity": "2021.1",
+  "author": {
+    "name": "Braneloc"
+  },
+  "description": "Meshes and Landscapes"
+}
