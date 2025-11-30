@@ -1,6 +1,6 @@
 {
-    "name": "Flerken.Mesh.Editor",
-    "rootNamespace": "FlerkenInABox",
+    "name": "Exo-Labs.MeshTools",
+    "rootNamespace": "ExoLabs.MeshTools",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],

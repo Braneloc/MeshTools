@@ -1,10 +1,10 @@
 {
-  "name": "com.flerkeninabox.mesh",
-  "version": "1.0.0",
-  "displayName": "Flerken Mesh",
+  "name": "uk.exo-labs.meshtools",
+  "version": "0.9.0",
+  "displayName": "MeshTools",
   "unity": "2021.1",
   "author": {
     "name": "Braneloc"
   },
-  "description": "Meshes and Landscapes"
+  "description": "Mesh Tools for Unity"
 }
