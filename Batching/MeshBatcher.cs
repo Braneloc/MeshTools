@@ -7,7 +7,7 @@ namespace ExoLabs.MeshTools
     /// <summary>
     /// Mesh batching is only really needed on very complex scenes with many meshes.
     /// </summary>
-    public class BatchSection : MonoBehaviour
+    public class MeshBatcher : MonoBehaviour
     {
         [InfoBox("This function can only be safely executed in Play Mode.", InfoMessageType.Warning, "IsEditMode")]
         [Button, EnableIf("IsRuntimeMode")]

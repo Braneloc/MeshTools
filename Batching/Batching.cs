@@ -7,10 +7,13 @@ namespace ExoLabs.MeshTools
 {
     public static class Batching
     {
-        public static void SetupBatch(Transform transform)
+        public static void SetupBatch(Transform transform, bool force=false )
         {
-            Debug.Assert(Application.isPlaying, "Batching can only be safely performed in Play Mode.");
-            if (!Application.isPlaying ) return; // paranoid much ?  Safety check.
+            if (!force)
+            {
+                Debug.Assert(Application.isPlaying, "Batching can only be safely performed in Play Mode.");
+                if (!Application.isPlaying) return; // paranoid much ?  Safety check.
+            }
 
             List<GameObject> list = new();
             ScanForBatch(transform, list);
@@ -30,6 +33,4 @@ namespace ExoLabs.MeshTools
             }
         }
     }
-
-
 }
