@@ -1,10 +1,10 @@
 {
   "name": "uk.exo-labs.meshtools",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "displayName": "MeshTools",
-  "unity": "2021.1",
+  "unity": "6000.0",
   "author": {
     "name": "Braneloc"
   },
-  "description": "Mesh Tools for Unity"
+  "description": "Mesh Tools for Unity\nIncludes MeshBuilder, Mesh Batcher"
 }
