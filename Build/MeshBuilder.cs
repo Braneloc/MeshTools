@@ -32,6 +32,13 @@ namespace ExoLabs.MeshTools
             if (meshCollider == null)
                 meshCollider = target.AddComponent<MeshCollider>();
         }
+        public void ClearMesh()
+        {
+            if (meshFilter != null)
+                meshFilter.mesh = null;
+            if (meshCollider != null)
+                meshCollider.sharedMesh = null;
+        }
         public void ApplyMaterial(Material material)
         {
             if (meshRenderer != null)
@@ -63,6 +70,8 @@ namespace ExoLabs.MeshTools
         public void AddUV0(Vector2 uv) => uv0.Add(uv);
         public void AddUV1(Vector2 uv) => uv1.Add(uv);
 
+        public void AddUV0(params Vector2[] uvs) => uv0.AddRange(uvs);
+        public void AddUV1(params Vector2[] uvs) => uv1.AddRange(uvs);
         public void AddTriangle(int v0, int v1, int v2)
         {
             triangles.Add(v0);
@@ -80,17 +89,30 @@ namespace ExoLabs.MeshTools
         }
         public void AddQuad(Vector3 v0, Vector3 v1, Vector3 v2, Vector3 v3, bool smooth = true)
         {
-            int iv0 = AddVertex(v0, smooth);
-            int iv1 = AddVertex(v1, smooth);
-            int iv2 = AddVertex(v2, smooth);
-            int iv3 = AddVertex(v3, smooth);
+            var iv0 = AddVertex(v0, smooth);
+            var iv1 = AddVertex(v1, smooth);
+            var iv2 = AddVertex(v2, smooth);
+            var iv3 = AddVertex(v3, smooth);
+            AddQuad(iv0, iv1, iv2, iv3);
+        }
+
+        public void AddQuad(Vector3 v0, Vector3 v1, Vector3 v2, Vector3 v3,
+                        Vector2 uv0, Vector2 uv1, Vector2 uv2, Vector2 uv3,
+                        bool smooth = false)
+        {
+            var iv0 = AddVertex(v0, smooth);
+            var iv1 = AddVertex(v1, smooth);
+            var iv2 = AddVertex(v2, smooth);
+            var iv3 = AddVertex(v3, smooth);
+
+            AddUV0(uv0, uv1, uv2, uv3);
             AddQuad(iv0, iv1, iv2, iv3);
         }
         public void AddTriangle(Vector3 v0, Vector3 v1, Vector3 v2, bool smooth = true)
         {
-            int iv0 = AddVertex(v0, smooth);
-            int iv1 = AddVertex(v1, smooth);
-            int iv2 = AddVertex(v2, smooth);
+            var iv0 = AddVertex(v0, smooth);
+            var iv1 = AddVertex(v1, smooth);
+            var iv2 = AddVertex(v2, smooth);
             AddTriangle(iv0, iv1, iv2);
         }
 
@@ -129,4 +151,5 @@ namespace ExoLabs.MeshTools
             meshFilter.mesh = mesh;
         }
     }
+
 }
