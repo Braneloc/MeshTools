@@ -1,4 +1,5 @@
 using System;
+
 using UnityEngine;
 
 namespace ExoLabs.MeshTools
@@ -35,10 +36,10 @@ namespace ExoLabs.MeshTools
             Vector3 corner111 = centre + new Vector3(halfSize.x, halfSize.y, halfSize.z);
             Vector3 corner011 = centre + new Vector3(-halfSize.x, halfSize.y, halfSize.z);
 
-            Vector2 uv00 = new Vector2(0f, 0f);
-            Vector2 uv10 = new Vector2(1f, 0f);
-            Vector2 uv11 = new Vector2(1f, 1f);
-            Vector2 uv01 = new Vector2(0f, 1f);
+            Vector2 uv00 = new(0f, 0f);
+            Vector2 uv10 = new(1f, 0f);
+            Vector2 uv11 = new(1f, 1f);
+            Vector2 uv01 = new(0f, 1f);
 
             if (faces.HasFlag(BoxFaces.Back))
             {
@@ -91,10 +92,10 @@ namespace ExoLabs.MeshTools
             Vector3 corner111 = centre + new Vector3(halfSize.x, halfSize.y, halfSize.z);
             Vector3 corner011 = centre + new Vector3(-halfSize.x, halfSize.y, halfSize.z);
 
-            Vector2 uv00 = new Vector2(0f, 0f);
-            Vector2 uv10 = new Vector2(1f, 0f);
-            Vector2 uv11 = new Vector2(1f, 1f);
-            Vector2 uv01 = new Vector2(0f, 1f);
+            Vector2 uv00 = new(0f, 0f);
+            Vector2 uv10 = new(1f, 0f);
+            Vector2 uv11 = new(1f, 1f);
+            Vector2 uv01 = new(0f, 1f);
 
             if (faces.HasFlag(BoxFaces.Back))
             {

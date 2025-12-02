@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ExoLabs.MeshTools
 {
-    public class MeshBuilder
+    public sealed class MeshBuilder
     {
         private MeshFilter meshFilter;
         private MeshRenderer meshRenderer;

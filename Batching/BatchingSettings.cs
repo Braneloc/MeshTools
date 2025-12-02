@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace ExoLabs.MeshTools
 {
-    public class BatchingSettings : MonoBehaviour, IBatchingMode
+    public sealed class BatchingSettings : MonoBehaviour, IBatchingMode
     {
-        [SerializeField] BatchingMode batchingMode = BatchingMode.Dynamic;
+        [SerializeField] private BatchingMode batchingMode = BatchingMode.Dynamic;
         public BatchingMode Mode => batchingMode;
     }
     public enum BatchingMode
