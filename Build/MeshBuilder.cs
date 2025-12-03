@@ -6,19 +6,18 @@ namespace ExoLabs.MeshTools
 {
     public sealed class MeshBuilder
     {
-        private MeshFilter meshFilter;
-        private MeshRenderer meshRenderer;
-        private MeshCollider meshCollider;
+        MeshFilter meshFilter;
+        MeshRenderer meshRenderer;
+        MeshCollider meshCollider;
 
-        private bool use32BitIndices = false;
-        private readonly List<Vector3> vertices = new();
-        private readonly List<int> triangles = new();
-        private readonly List<Vector2> uv0 = new();
-        private readonly List<Vector2> uv1 = new();
-        private readonly List<Color> colours = new();
-        private readonly Dictionary<Vector3, int> vertexLookup = new();
+        bool use32BitIndices = false;
+        List<Vector3> vertices = new();
+        List<int> triangles = new();
+        readonly List<Vector2> uv0 = new();
+        readonly List<Vector2> uv1 = new();
+        readonly List<Color> colours = new();
+        readonly Dictionary<Vector3, int> vertexLookup = new();
 
-        public MeshBuilder(GameObject gameObject) => SetupComponents(gameObject);
 
         public void SetupComponents(GameObject target)
         {
@@ -46,7 +45,7 @@ namespace ExoLabs.MeshTools
         }
         public int AddVertex(Vector3 value, bool smooth = true) => smooth ? AddSmoothVertex(value) : AddFlatVertex(value);
 
-        private int AddFlatVertex(Vector3 value)
+        int AddFlatVertex(Vector3 value)
         {
             vertices.Add(value);    // possibly a deliberate duplicate
             int last = vertices.Count - 1;
@@ -54,7 +53,7 @@ namespace ExoLabs.MeshTools
                 vertexLookup.Add(value, last);
             return last;
         }
-        private int AddSmoothVertex(Vector3 value)
+        int AddSmoothVertex(Vector3 value)
         {
             if (vertexLookup.TryGetValue(value, out int index))
                 return index;
@@ -128,8 +127,27 @@ namespace ExoLabs.MeshTools
             vertexLookup.Clear();
         }
 
-        public void BuildMesh(string meshName = "Mesh")
+        public void BuildFromPointCloud(List<Vector3> pointCloud, string meshName = "Mesh")
         {
+            var calc = new GK.ConvexHullCalculator();
+            var normals = new List<Vector3>();
+            calc.GenerateHull(pointCloud, true, ref vertices, ref triangles, ref normals);
+            Mesh mesh = new()
+            {
+                name = meshName,
+                vertices = vertices.ToArray(),
+                triangles = triangles.ToArray(),
+                normals = normals.ToArray(),
+            };
+            if (vertices.Count > 65535) use32BitIndices = true;
+            if (use32BitIndices) mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+            meshCollider.sharedMesh = mesh;
+            meshFilter.sharedMesh = mesh;
+        }
+
+        public void BuildMesh(GameObject target, string meshName = "Mesh")
+        {
+            SetupComponents(target);
             Mesh mesh = new()
             {
                 name = meshName,
@@ -147,9 +165,13 @@ namespace ExoLabs.MeshTools
 
             if (vertices.Count > 65535) use32BitIndices = true;
             if (use32BitIndices) mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+            meshCollider.convex = true;
             meshCollider.sharedMesh = mesh;
-            meshFilter.mesh = mesh;
+            Debug.Log(meshCollider.GeometryHolder.Type);
+            Debug.Log(meshCollider.sharedMesh.GetIndexCount(0));
+            meshFilter.sharedMesh = meshCollider.sharedMesh;
+            Debug.Log(meshFilter.sharedMesh.GetIndexCount(0));
         }
-    }
 
+    }
 }

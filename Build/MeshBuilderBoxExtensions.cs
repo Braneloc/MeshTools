@@ -4,8 +4,14 @@ using UnityEngine;
 
 namespace ExoLabs.MeshTools
 {
+    /// <summary>
+    /// Meshbuilder extensions for building boxes
+    /// </summary>
     public static class MeshBuilderBoxExtensions
     {
+        /// <summary>
+        /// adds a quad extruded by the given vector
+        /// </summary>
         public static void AddExtrudedQuad(this MeshBuilder builder, Vector3 v0, Vector3 v1, Vector3 v2, Vector3 v3,
                               Vector3 extrude,
                               bool smooth = false)
@@ -22,6 +28,9 @@ namespace ExoLabs.MeshTools
             builder.AddQuad(iv0, iv1, iv2, iv3);
         }
 
+        /// <summary>
+        /// Adds a simple box to the mesh builder
+        /// </summary>
         public static void AddBox(this MeshBuilder builder, Vector3 centre, Vector3 size, BoxFaces faces, bool smooth = false)
         {
             Vector3 halfSize = size * 0.5f;
