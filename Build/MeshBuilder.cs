@@ -18,6 +18,8 @@ namespace ExoLabs.MeshTools
         readonly List<Color> colours = new();
         readonly Dictionary<Vector3, int> vertexLookup = new();
 
+        public List<Vector3> Vertices => vertices;
+        public List<int> Triangles => triangles;
 
         public void SetupComponents(GameObject target)
         {
@@ -127,29 +129,7 @@ namespace ExoLabs.MeshTools
             vertexLookup.Clear();
         }
 
-        public void BuildFromPointCloud(List<Vector3> pointCloud, string meshName = "Mesh")
-        {
-            var calc = new GK.ConvexHullCalculator();
-            var normals = new List<Vector3>();
-            calc.GenerateHull(pointCloud, true, ref vertices, ref triangles, ref normals);
-            Mesh mesh = new()
-            {
-                name = meshName,
-                vertices = vertices.ToArray(),
-                triangles = triangles.ToArray(),
-                normals = normals.ToArray(),
-            };
-            mesh.Optimize();
-            mesh.OptimizeIndexBuffers();
-            mesh.OptimizeReorderVertexBuffer();
-            mesh.RecalculateNormals();
-            mesh.RecalculateTangents();
 
-            if (vertices.Count > 65535) use32BitIndices = true;
-            if (use32BitIndices) mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
-            meshCollider.sharedMesh = mesh;
-            meshFilter.sharedMesh = mesh;
-        }
 
         public void BuildMesh(GameObject target, string meshName = "Mesh")
         {
@@ -178,6 +158,5 @@ namespace ExoLabs.MeshTools
             meshFilter.sharedMesh = meshCollider.sharedMesh;
             //Debug.Log(meshFilter.sharedMesh.GetIndexCount(0));
         }
-
     }
 }
