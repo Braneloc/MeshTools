@@ -139,6 +139,12 @@ namespace ExoLabs.MeshTools
                 triangles = triangles.ToArray(),
                 normals = normals.ToArray(),
             };
+            mesh.Optimize();
+            mesh.OptimizeIndexBuffers();
+            mesh.OptimizeReorderVertexBuffer();
+            mesh.RecalculateNormals();
+            mesh.RecalculateTangents();
+
             if (vertices.Count > 65535) use32BitIndices = true;
             if (use32BitIndices) mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
             meshCollider.sharedMesh = mesh;
@@ -167,10 +173,10 @@ namespace ExoLabs.MeshTools
             if (use32BitIndices) mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
             meshCollider.convex = true;
             meshCollider.sharedMesh = mesh;
-            Debug.Log(meshCollider.GeometryHolder.Type);
-            Debug.Log(meshCollider.sharedMesh.GetIndexCount(0));
+            //Debug.Log(meshCollider.GeometryHolder.Type);
+            //Debug.Log(meshCollider.sharedMesh.GetIndexCount(0));
             meshFilter.sharedMesh = meshCollider.sharedMesh;
-            Debug.Log(meshFilter.sharedMesh.GetIndexCount(0));
+            //Debug.Log(meshFilter.sharedMesh.GetIndexCount(0));
         }
 
     }

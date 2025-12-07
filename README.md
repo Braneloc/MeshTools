@@ -23,7 +23,7 @@ As this makes changes to the meshes, it might not be a good thing to call it fro
 unless of course you actally want permanent changes to your meshes and you want to save afterwards.
 
 # Usage Mesh Builder
-Sorry, read the code.  Setup the MeshBuilder on a gameobject.  Add vertices and triangles to suit.
+Setup the MeshBuilder on a gameobject.  Add vertices and triangles to suit.
 Call BuildMesh to finalise and build the mesh.
 
 ## Party on dudes  
