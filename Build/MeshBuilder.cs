@@ -131,7 +131,7 @@ namespace ExoLabs.MeshTools
 
 
 
-        public void BuildMesh(GameObject target, string meshName = "Mesh")
+        public void BuildMesh(GameObject target, bool convex = false, string meshName = "Mesh")
         {
             SetupComponents(target);
             Mesh mesh = new()
@@ -144,19 +144,25 @@ namespace ExoLabs.MeshTools
             if (uv0.Count > 0) mesh.SetUVs(0, uv0);
             if (uv1.Count > 0) mesh.SetUVs(1, uv1);
 
-            mesh.Optimize();
-            mesh.RecalculateNormals();
-            mesh.RecalculateTangents();
-            mesh.RecalculateBounds();
-
             if (vertices.Count > 65535) use32BitIndices = true;
             if (use32BitIndices) mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
-            meshCollider.convex = true;
+
+            meshCollider.convex = convex;
             meshCollider.sharedMesh = mesh;
-            //Debug.Log(meshCollider.GeometryHolder.Type);
-            //Debug.Log(meshCollider.sharedMesh.GetIndexCount(0));
             meshFilter.sharedMesh = meshCollider.sharedMesh;
-            //Debug.Log(meshFilter.sharedMesh.GetIndexCount(0));
+        }
+        public void Optimise()
+        {
+            if (meshFilter == null || meshFilter.sharedMesh == null) return;
+            meshFilter.sharedMesh.Optimize();
+        }
+
+        public void Recalculate(bool normals, bool tangents, bool bounds)
+        {
+            if (meshFilter == null || meshFilter.sharedMesh == null) return;
+            if (normals) meshFilter.sharedMesh.RecalculateNormals();
+            if (tangents) meshFilter.sharedMesh.RecalculateTangents();
+            if (bounds) meshFilter.sharedMesh.RecalculateBounds();
         }
     }
 }
