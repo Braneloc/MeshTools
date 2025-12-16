@@ -1,7 +1,7 @@
 {
   "name": "uk.exo-labs.meshtools",
-  "version": "0.9.3",
-  "displayName": "MeshTools",
+  "version": "0.9.4",
+  "displayName": "Exo-Labs Mesh Tools",
   "unity": "6000.0",
   "hideInEditor": false,
   "author": {
